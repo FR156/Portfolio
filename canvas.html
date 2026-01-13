@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floating Navbar with Tooltips</title>
+    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles for tooltips */
+        .tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #1f2937;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+            z-index: 100;
+            margin-left: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 6px 6px 6px 0;
+            border-style: solid;
+            border-color: transparent #1f2937 transparent transparent;
+        }
+        
+        .nav-link:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .navbar-transition {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="flex">
+        <!-- Floating Left-Side Navbar (Compact with Tooltips) -->
+        <nav id="navbar" class="navbar-transition fixed left-4 top-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl z-50 w-16">
+            <div class="py-2 px-2">
+                <ul class="space-y-2">
+                    <!-- Link 1: Dashboard -->
+                    <li class="nav-link relative">
+                        <a href="#hero" class="flex items-center justify-center p-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                            <i class="fas fa-home text-xl"></i>
+                        </a>
+                        <div class="tooltip">Dashboard</div>
+                    </li>
+                    
+                    <!-- Link 2: Analytics -->
+                    <li class="nav-link relative">
+                        <a href="#" class="flex items-center justify-center p-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                            <i class="fas fa-chart-bar text-xl"></i>
+                        </a>
+                        <div class="tooltip">Analytics</div>
+                    </li>
+                    
+                    <!-- Link 3: Projects -->
+                    <li class="nav-link relative">
+                        <a href="#" class="flex items-center justify-center p-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                            <i class="fas fa-folder text-xl"></i>
+                        </a>
+                        <div class="tooltip">Projects</div>
+                    </li>
+                    
+                    <!-- Link 4: Messages -->
+                    <li class="nav-link relative">
+                        <a href="#" class="flex items-center justify-center p-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                            <i class="fas fa-envelope text-xl"></i>
+                            <span class="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                        </a>
+                        <div class="tooltip">Messages</div>
+                    </li>
+                    
+                    <!-- Link 5: Settings -->
+                    <li class="nav-link relative">
+                        <a href="#" class="flex items-center justify-center p-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                            <i class="fas fa-cog text-xl"></i>
+                        </a>
+                        <div class="tooltip">Settings</div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6 md:ml-24">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Compact Floating Navbar with Tooltips</h1>
+                <p class="text-gray-600 mb-8">This navbar stays compact and shows tooltips on hover instead of expanding. Perfect for minimal UI designs.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-3">Features</h2>
+                        <ul class="space-y-2 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Compact design (5 links only)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Shows tooltips on hover instead of expanding</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Floating position on left side</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                <span>Clean, modern design with subtle animations</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-md">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-3">Navigation Items</h2>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
+                                    <i class="fas fa-home text-blue-600"></i>
+                                </div>
+                                <span>Dashboard</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
+                                    <i class="fas fa-chart-bar text-blue-600"></i>
+                                </div>
+                                <span>Analytics</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
+                                    <i class="fas fa-folder text-blue-600"></i>
+                                </div>
+                                <span>Projects</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
+                                    <i class="fas fa-envelope text-blue-600"></i>
+                                </div>
+                                <span>Messages (with notification badge)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center mr-3">
+                                    <i class="fas fa-cog text-blue-600"></i>
+                                </div>
+                                <span>Settings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-md mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">How It Works</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-medium text-gray-800 mb-2">Tooltip System</h3>
+                            <p class="text-sm text-gray-600">Each link has a hidden tooltip that appears on hover with a smooth fade-in effect.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-medium text-gray-800 mb-2">Compact Design</h3>
+                            <p class="text-sm text-gray-600">Navbar maintains a fixed width of 4rem (w-16) and centers all icons for a clean look.</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-medium text-gray-800 mb-2">Positioning</h3>
+                            <p class="text-sm text-gray-600">Uses fixed positioning with transform to center vertically on the page.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-gray-800 text-gray-100 rounded-lg font-mono text-sm overflow-x-auto">
+                        <p><span class="text-green-400">// Key CSS for tooltips:</span></p>
+                        <p>.tooltip {</p>
+                        <p class="ml-4">position: absolute;</p>
+                        <p class="ml-4">left: 100%; <span class="text-gray-400">/* Position to the right of icon */</span></p>
+                        <p class="ml-4">opacity: 0;</p>
+                        <p class="ml-4">visibility: hidden;</p>
+                        <p class="ml-4">transition: opacity 0.2s ease;</p>
+                        <p>}</p>
+                        <p>.nav-link:hover .tooltip {</p>
+                        <p class="ml-4">opacity: 1;</p>
+                        <p class="ml-4">visibility: visible;</p>
+                        <p>}</p>
+                    </div>
+                </div>
+                
+                <div class="bg-linear-to-r from-blue-50 to-purple-50 p-6 rounded-2xl border border-blue-100">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-3">Implementation Instructions</h2>
+                    <ol class="list-decimal pl-5 space-y-2 text-gray-700">
+                        <li>Each navigation link is wrapped in a <code class="bg-gray-200 px-1 rounded">nav-link relative</code> container</li>
+                        <li>The tooltip is a sibling element to the link, positioned absolutely</li>
+                        <li>Tooltips appear on hover using CSS <code class="bg-gray-200 px-1 rounded">:hover</code> pseudo-class</li>
+                        <li>All icons are centered with <code class="bg-gray-200 px-1 rounded">justify-center</code></li>
+                        <li>The navbar is vertically centered with <code class="bg-gray-200 px-1 rounded">top-1/2 -translate-y-1/2</code></li>
+                    </ol>
+                </div>
+                
+                <div class="mt-8 text-center text-gray-500 text-sm">
+                    <p>Hover over the icons in the floating navbar on the left to see the tooltips appear.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple script to demonstrate tooltip functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click event to navigation links for demo purposes
+            const navLinks = document.querySelectorAll('.nav-link a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const icon = this.querySelector('i');
+                    const iconClass = icon.className.split(' ')[1];
+                    
+                    // Find the tooltip text
+                    const tooltip = this.parentElement.querySelector('.tooltip').textContent;
+                    
+                    // Show a demo alert
+                    alert(`Navigating to: ${tooltip}\n\n(In a real application, this would navigate to the ${tooltip} page.)`);
+                });
+            });
+            
+            // Add a subtle pulse animation to the notification badge
+            const notificationBadge = document.querySelector('.bg-red-500');
+            if (notificationBadge) {
+                setInterval(() => {
+                    notificationBadge.classList.toggle('animate-pulse');
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
