@@ -1,1 +1,101 @@
 @import "tailwindcss";
+
+@theme {
+  /* This replaces your 'extend' and 'animation' JS object */
+  --animate-slide-in: slide-in 0.3s ease-out;
+  --animate-fade-in: fade-in 0.5s ease-out;
+
+  /* This replaces your 'keyframes' JS object */
+  @keyframes slide-in {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+.snap-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+/* Custom scrollbar */
+.snap-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.snap-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.snap-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.snap-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 1;
+    left: 120%;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Section indicator */
+.section-indicator {
+    width: 4px;
+    height: 40px;
+    background-color: #ccc;
+    margin: 8px auto;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.section-indicator.active {
+    background-color: #3b82f6;
+    height: 60px;
+}

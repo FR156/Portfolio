@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Navigation Sidebar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        
+        .snap-section {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+        
+        /* Custom scrollbar */
+        .snap-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .snap-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .snap-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .snap-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px 12px;
+            position: absolute;
+            z-index: 1;
+            left: 120%;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #333 transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Section indicator */
+        .section-indicator {
+            width: 4px;
+            height: 40px;
+            background-color: #ccc;
+            margin: 8px auto;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+        
+        .section-indicator.active {
+            background-color: #3b82f6;
+            height: 60px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Sidebar -->
+    <nav id="navbar" class="fixed top-0 left-0 h-full w-20 bg-white shadow-xl z-50 hidden transform -translate-x-full transition-transform duration-300">
+        <div class="flex flex-col h-full py-6">
+            <!-- Logo -->
+            <div class="px-4 mb-8">
+                <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                    <i class="fas fa-rocket text-white text-xl"></i>
+                </div>
+            </div>
+            
+            <!-- Navigation Items -->
+            <div class="flex-1 flex flex-col items-center space-y-2">
+                <!-- Home -->
+                <a href="#landing" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="landing">
+                    <i class="fas fa-home text-xl"></i>
+                    <span class="tooltip-text">Home</span>
+                </a>
+                
+                <!-- About -->
+                <a href="#about" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="about">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="tooltip-text">About</span>
+                </a>
+                
+                <!-- Services -->
+                <a href="#services" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="services">
+                    <i class="fas fa-cogs text-xl"></i>
+                    <span class="tooltip-text">Services</span>
+                </a>
+                
+                <!-- Portfolio -->
+                <a href="#portfolio" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="portfolio">
+                    <i class="fas fa-briefcase text-xl"></i>
+                    <span class="tooltip-text">Portfolio</span>
+                </a>
+                
+                <!-- Contact -->
+                <a href="#contact" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="contact">
+                    <i class="fas fa-envelope text-xl"></i>
+                    <span class="tooltip-text">Contact</span>
+                </a>
+            </div>
+            
+            <!-- Section Indicator -->
+            <div class="px-4 mt-8">
+                <div class="flex flex-col items-center">
+                    <div class="section-indicator active" data-indicator="landing"></div>
+                    <div class="section-indicator" data-indicator="about"></div>
+                    <div class="section-indicator" data-indicator="services"></div>
+                    <div class="section-indicator" data-indicator="portfolio"></div>
+                    <div class="section-indicator" data-indicator="contact"></div>
+                </div>
+            </div>
+            
+            <!-- Settings -->
+            <div class="px-4 mt-8">
+                <div class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                    <i class="fas fa-cog text-xl"></i>
+                    <span class="tooltip-text">Settings</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content with Snap Scrolling -->
+    <main class="snap-container" id="main-container">
+        <!-- Landing Section (Navbar Hidden Here) -->
+        <section id="landing" class="snap-section h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
+            <div class="text-center max-w-4xl animate-fade-in">
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-6">
+                    Welcome to 
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                        SnapScroll
+                    </span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
+                    This is the landing section where the navigation sidebar is hidden. 
+                    Scroll down to see the sidebar appear with a smooth animation.
+                </p>
+                <div class="flex flex-col items-center space-y-4">
+                    <div class="text-gray-500 text-lg animate-bounce">
+                        <i class="fas fa-chevron-down"></i>
+                        <span class="ml-2">Scroll down to begin</span>
+                    </div>
+                    <div class="text-sm text-gray-400">
+                        The navbar will appear when you leave this section
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="snap-section h-screen w-full flex items-center justify-center bg-gradient-to-br from-emerald-50 to-teal-100 p-8">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                        About <span class="text-emerald-600">Us</span>
+                    </h2>
+                    <p class="text-lg text-gray-700 mb-6">
+                        We are a passionate team of developers and designers creating beautiful, functional interfaces. Our mission is to make web navigation intuitive and delightful.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-8">
+                        Notice how the navigation sidebar appeared with a smooth slide-in animation when you scrolled to this section. Hover over the icons to see tooltips.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center text-white">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800">Team of Experts</h3>
+                            <p class="text-gray-600">Dedicated professionals</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <i class="fas fa-lightbulb text-3xl text-yellow-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Innovation</h3>
+                        <p class="text-gray-600">Pushing boundaries with creative solutions</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <i class="fas fa-bolt text-3xl text-blue-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Speed</h3>
+                        <p class="text-gray-600">Fast performance and quick delivery</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <i class="fas fa-heart text-3xl text-red-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Passion</h3>
+                        <p class="text-gray-600">Love for what we do drives excellence</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                        <i class="fas fa-shield-alt text-3xl text-green-500 mb-4"></i>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Reliability</h3>
+                        <p class="text-gray-600">Consistent and dependable results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="snap-section h-screen w-full flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100 p-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16">
+                    Our <span class="text-amber-600">Services</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-code text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Web Development</h3>
+                        <p class="text-gray-600 mb-6">
+                            Custom websites and web applications built with modern technologies and best practices.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                                <span>Responsive Design</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                                <span>Frontend & Backend</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                                <span>API Integration</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-paint-brush text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">UI/UX Design</h3>
+                        <p class="text-gray-600 mb-6">
+                            Beautiful and intuitive interfaces designed to enhance user experience and engagement.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                                <span>User Research</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                                <span>Wireframing & Prototyping</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                                <span>Usability Testing</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-rocket text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Performance Optimization</h3>
+                        <p class="text-gray-600 mb-6">
+                            Speed up your website and improve core web vitals for better SEO and user retention.
+                        </p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                                <span>Page Speed Analysis</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                                <span>Code Optimization</span>
+                            </li>
+                            <li class="flex items-center text-gray-700">
+                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                                <span>Caching Strategies</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="snap-section h-screen w-full flex items-center justify-center bg-gradient-to-br from-violet-50 to-purple-100 p-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16">
+                    Our <span class="text-violet-600">Portfolio</span>
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
+                        <div class="h-48 bg-gradient-to-r from-blue-400 to-cyan-400 flex items-center justify-center">
+                            <i class="fas fa-shopping-cart text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">E-Commerce Platform</h3>
+                            <p class="text-gray-600 mb-4">A full-featured online store with payment integration and inventory management.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-violet-600 font-medium">Web Development</span>
+                                <a href="#" class="text-violet-600 hover:text-violet-800">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
+                        <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Fitness App</h3>
+                            <p class="text-gray-600 mb-4">A mobile application for tracking workouts, nutrition, and fitness goals.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-violet-600 font-medium">UI/UX Design</span>
+                                <a href="#" class="text-violet-600 hover:text-violet-800">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
+                        <div class="h-48 bg-gradient-to-r from-green-400 to-teal-400 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-5xl"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">Analytics Dashboard</h3>
+                            <p class="text-gray-600 mb-4">A comprehensive data visualization tool for business intelligence.</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-violet-600 font-medium">Web Development</span>
+                                <a href="#" class="text-violet-600 hover:text-violet-800">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="text-gray-700 text-lg">
+                        Hover over the navigation icons to see tooltips. Try clicking on them to navigate between sections.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="snap-section h-screen w-full flex items-center justify-center bg-gradient-to-br from-rose-50 to-pink-100 p-8">
+            <div class="max-w-4xl mx-auto w-full">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-4">
+                    Get In <span class="text-rose-600">Touch</span>
+                </h2>
+                <p class="text-xl text-center text-gray-600 mb-12 max-w-3xl mx-auto">
+                    Have a project in mind? Let's work together to bring your ideas to life.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-rose-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-800">Our Location</h4>
+                                    <p class="text-gray-600">123 Web Street, Design City, DC 10001</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone-alt text-rose-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-800">Phone Number</h4>
+                                    <p class="text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-rose-100 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-rose-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-gray-800">Email Address</h4>
+                                    <p class="text-gray-600">hello@snapscroll.dev</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center hover:bg-rose-700 transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center hover:bg-rose-700 transition-colors">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center hover:bg-rose-700 transition-colors">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-rose-600 text-white rounded-full flex items-center justify-center hover:bg-rose-700 transition-colors">
+                                    <i class="fab fa-dribbble"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Send a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="name">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition" placeholder="Your name">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-gray-700 mb-2" for="email">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition" placeholder="Your email">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 mb-2" for="message">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-transparent outline-none transition" placeholder="Your message"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium py-3 rounded-lg hover:opacity-90 transition-opacity">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center text-gray-600">
+                    <p>Scroll back to the top to see the navbar disappear on the landing section.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Instructions -->
+    <div class="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg max-w-xs text-sm z-40">
+        <p><strong>Instructions:</strong> Scroll down to see the navbar appear. Hover over icons for tooltips. Click icons to navigate.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.getElementById('navbar');
+            const mainContainer = document.getElementById('main-container');
+            const sectionIndicators = document.querySelectorAll('.section-indicator');
+            
+            // Track the current active section
+            let activeSection = 'landing';
+            
+            // Function to show/hide navbar based on scroll position
+            function handleScroll() {
+                const scrollPosition = mainContainer.scrollTop;
+                const windowHeight = window.innerHeight;
+                
+                // If we're in the first section (landing), hide navbar
+                if (scrollPosition < windowHeight * 0.5) {
+                    navbar.classList.remove('translate-x-0');
+                    navbar.classList.remove('hidden');
+                    navbar.classList.add('-translate-x-full');
+                    activeSection = 'landing';
+                } else {
+                    // Show navbar with animation
+                    navbar.classList.remove('-translate-x-full');
+                    navbar.classList.add('translate-x-0', 'animate-slide-in');
+                    activeSection = getCurrentSection();
+                }
+                
+                // Update section indicators
+                updateSectionIndicators(activeSection);
+            }
+            
+            // Function to determine current section based on scroll position
+            function getCurrentSection() {
+                const sections = ['landing', 'about', 'services', 'portfolio', 'contact'];
+                const scrollPosition = mainContainer.scrollTop + (window.innerHeight / 2);
+                
+                for (let i = 0; i < sections.length; i++) {
+                    const section = document.getElementById(sections[i]);
+                    const sectionTop = section.offsetTop;
+                    const sectionBottom = sectionTop + section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                        return sections[i];
+                    }
+                }
+                
+                return 'landing';
+            }
+            
+            // Function to update section indicators
+            function updateSectionIndicators(active) {
+                sectionIndicators.forEach(indicator => {
+                    if (indicator.dataset.indicator === active) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Set up smooth scrolling for nav links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active section
+                        activeSection = targetId.substring(1);
+                        updateSectionIndicators(activeSection);
+                    }
+                });
+            });
+            
+            // Initialize section indicators
+            updateSectionIndicators('landing');
+            
+            // Listen for scroll events
+            mainContainer.addEventListener('scroll', handleScroll);
+            
+            // Handle page load - check initial position
+            setTimeout(handleScroll, 100);
+            
+            // Add click event to logo to scroll to top
+            document.querySelector('a[href="#landing"]').addEventListener('click', function(e) {
+                // Already handled by the smooth scroll above
+                // This is just for clarity
+                navbar.classList.remove('translate-x-0');
+                navbar.classList.add('-translate-x-full');
+            });
+        });
+    </script>
+</body>
+</html>
