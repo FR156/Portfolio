@@ -11,61 +11,67 @@
     <!-- Navigation Sidebar -->
     <nav id="navbar" class="fixed top-0 left-0 h-full w-20 bg-white shadow-xl z-50 hidden transform -translate-x-full transition-transform duration-300">
         <div class="flex flex-col h-full py-6">
-            <!-- Logo -->
-            <div class="px-4 mb-8">
-                <div class="w-12 h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                    <i class="fas fa-rocket text-white text-xl"></i>
-                </div>
-            </div>
-            
             <!-- Navigation Items -->
-            <div class="flex-1 flex flex-col items-center space-y-2">
+            <div class="flex-1 flex flex-col justify-center items-center space-y-2">
                 <!-- Home -->
-                <a href="#landing" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="landing">
-                    <i class="fas fa-home text-xl"></i>
+                <a href="#landing" class="tooltip w-12 h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md" data-section="landing">
+                    <div class="w-full h-full flex items-center justify-center">
+                        <i class="fas fa-home text-xl text-white"></i>
+                    </div>
                     <span class="tooltip-text">Home</span>
                 </a>
                 
                 <!-- About -->
-                <a href="#about" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="about">
-                    <i class="fas fa-user text-xl"></i>
-                    <span class="tooltip-text">About</span>
-                </a>
+                <div class="flex flex-row">
+                    <div class="section-indicator lg:h-8" data-indicator="about"></div>
+                    <a href="#about" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="about">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-user text-xl"></i>
+                        </div>
+                        <span class="tooltip-text">About</span>
+                    </a>
+                </div>
                 
                 <!-- Services -->
-                <a href="#services" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="services">
-                    <i class="fas fa-cogs text-xl"></i>
-                    <span class="tooltip-text">Services</span>
-                </a>
+                <div class="flex flex-row">
+                    <div class="section-indicator lg:h-8" data-indicator="services"></div>
+                    <a href="#services" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="services">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-cogs text-xl"></i>
+                        </div>
+                        <span class="tooltip-text">Services</span>
+                    </a>
+                </div>
                 
                 <!-- Portfolio -->
-                <a href="#portfolio" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="portfolio">
-                    <i class="fas fa-briefcase text-xl"></i>
-                    <span class="tooltip-text">Portfolio</span>
-                </a>
+                <div class="flex flex-row">
+                    <div class="section-indicator lg:h-8" data-indicator="portfolio"></div>
+                    <a href="#portfolio" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="portfolio">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-briefcase text-xl"></i>
+                        </div>
+                        <span class="tooltip-text">Portfolio</span>
+                    </a>
+                </div>
                 
                 <!-- Contact -->
-                <a href="#contact" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="contact">
-                    <i class="fas fa-envelope text-xl"></i>
-                    <span class="tooltip-text">Contact</span>
-                </a>
-            </div>
-            
-            <!-- Section Indicator -->
-            <div class="px-4 mt-8">
-                <div class="flex flex-col items-center">
-                    <div class="section-indicator active" data-indicator="landing"></div>
-                    <div class="section-indicator" data-indicator="about"></div>
-                    <div class="section-indicator" data-indicator="services"></div>
-                    <div class="section-indicator" data-indicator="portfolio"></div>
-                    <div class="section-indicator" data-indicator="contact"></div>
+                <div class="flex flex-row">
+                    <div class="section-indicator lg:h-8" data-indicator="contact"></div>
+                    <a href="#contact" class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200" data-section="contact">
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </div>
+                        <span class="tooltip-text">Contact</span>
+                    </a>
                 </div>
             </div>
             
             <!-- Settings -->
-            <div class="px-4 mt-8">
+            <div class="px-4 mt-6">
                 <div class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                    <i class="fas fa-cog text-xl"></i>
+                    <div class="w-full h-full flex items-center justify-center">
+                        <i class="fas fa-cog text-xl"></i>
+                    </div>
                     <span class="tooltip-text">Settings</span>
                 </div>
             </div>
