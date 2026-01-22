@@ -8,17 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="bg-gray-50">
-    <!-- Navigation Sidebar -->
-    <nav id="navbar" class="fixed top-0 left-0 h-full w-20 bg-white shadow-xl z-50 hidden transform -translate-x-full transition-transform duration-300">
-        <div class="flex flex-col h-full py-6">
+    <!-- Navbar Wrapper -->
+    <div class="fixed top-0 left-0 h-screen flex items-center justify-center z-50 pointer-events-none">
+        <!-- Navigation Sidebar -->
+        <nav id="navbar" class="w-full bg-3048784D shadow-xl rounded-xl hidden transform -translate-x-full transition-transform duration-300 pointer-events-auto">
             <!-- Navigation Items -->
-            <div class="flex-1 flex flex-col justify-center items-center space-y-2">
+            <div class="flex-1 flex flex-col h-full py-2 px-2 justify-center items-center space-y-2">
                 <!-- Home -->
-                <a href="#landing" class="tooltip w-12 h-12 bg-linear-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md" data-section="landing">
+                <a href="#landing" class="w-12 h-12 rounded-lg flex items-center justify-center" data-section="landing">
                     <div class="w-full h-full flex items-center justify-center">
-                        <i class="fas fa-home text-xl text-white"></i>
+                        <div class="size-8 bg-zinc-400 hover:bg-lime-400 transition-colors cursor-pointer" style="mask: url('/alien-svgrepo-com.svg') no-repeat center / contain; -webkit-mask: url('/alien-svgrepo-com.svg') no-repeat center / contain;"></div>
                     </div>
-                    <span class="tooltip-text">Home</span>
                 </a>
                 
                 <!-- About -->
@@ -64,49 +64,37 @@
                         <span class="tooltip-text">Contact</span>
                     </a>
                 </div>
+
+                <!-- Toggle Theme -->
+                
             </div>
-            
-            <!-- Settings -->
-            <div class="px-4 mt-6">
-                <div class="tooltip w-12 h-12 flex items-center justify-center rounded-lg hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <i class="fas fa-cog text-xl"></i>
-                    </div>
-                    <span class="tooltip-text">Settings</span>
-                </div>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <!-- Main Content with Snap Scrolling -->
     <main class="snap-container" id="main-container">
         <!-- Landing Section (Navbar Hidden Here) -->
-        <section id="landing" class="snap-section h-screen w-full flex flex-col items-center justify-center bg-linear-to-br from-blue-50 to-indigo-100 p-8">
-            <div class="text-center max-w-4xl animate-fade-in">
-                <h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-6">
-                    Welcome to 
-                    <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">
-                        SnapScroll
-                    </span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                    This is the landing section where the navigation sidebar is hidden. 
-                    Scroll down to see the sidebar appear with a smooth animation.
-                </p>
-                <div class="flex flex-col items-center space-y-4">
-                    <div class="text-gray-500 text-lg animate-bounce">
-                        <i class="fas fa-chevron-down"></i>
-                        <span class="ml-2">Scroll down to begin</span>
+        <section id="landing" class="snap-section h-screen w-full flex flex-col items-center justify-center bg-blue-background p-8">
+            <div class="flex flex-col items-stretch text-center max-w-4xl animate-fade-in">
+                <div class="flex flex-row space-x-0">
+                    <div class="size-48 bg-zinc-400 hover:bg-lime-400 transition-colors" style="mask: url('/alien-svgrepo-com.svg') no-repeat center / contain; -webkit-mask: url('/alien-svgrepo-com.svg') no-repeat center / contain;"></div>
+                    <div class="flex flex-col justify-center">
+                        <p align="left" class="text-white-text text-5xl font-medium">
+                            THE OUTER
+                        </p>
+                        <p class="text-white-text text-7xl font-semibold">
+                            COLONY
+                        </p>
                     </div>
-                    <div class="text-sm text-gray-400">
-                        The navbar will appear when you leave this section
-                    </div>
+                </div>
+                <div class="text-gray-800 text-lg my-auto bottom-0">
+                    <span class="ml-2">Scroll down to begin</span>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="snap-section h-screen w-full flex items-center justify-center bg-linear-to-br from-emerald-50 to-teal-100 p-8">
+        <section id="about" class="snap-section h-screen w-full flex items-center justify-center bg-blue-background p-8">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 <div>
                     <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
@@ -129,22 +117,22 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="bg-blue-primary p-6 rounded-2xl shadow-lg">
                         <i class="fas fa-lightbulb text-3xl text-yellow-500 mb-4"></i>
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Innovation</h3>
                         <p class="text-gray-600">Pushing boundaries with creative solutions</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="bg-blue-primary p-6 rounded-2xl shadow-lg">
                         <i class="fas fa-bolt text-3xl text-blue-500 mb-4"></i>
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Speed</h3>
                         <p class="text-gray-600">Fast performance and quick delivery</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="bg-blue-primary p-6 rounded-2xl shadow-lg">
                         <i class="fas fa-heart text-3xl text-red-500 mb-4"></i>
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Passion</h3>
                         <p class="text-gray-600">Love for what we do drives excellence</p>
                     </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="bg-blue-primary p-6 rounded-2xl shadow-lg">
                         <i class="fas fa-shield-alt text-3xl text-green-500 mb-4"></i>
                         <h3 class="text-xl font-bold text-gray-800 mb-2">Reliability</h3>
                         <p class="text-gray-600">Consistent and dependable results</p>
@@ -154,79 +142,79 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="snap-section h-screen w-full flex items-center justify-center bg-linear-to-br from-amber-50 to-orange-100 p-8">
+        <section id="services" class="snap-section h-screen w-full flex items-center justify-center bg-blue-background p-8">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16">
                     Our <span class="text-amber-600">Services</span>
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
-                        <div class="w-16 h-16 bg-linear-to-r from-amber-500 to-orange-500 rounded-xl flex items-center justify-center mb-6">
-                            <i class="fas fa-code text-white text-2xl"></i>
+                    <div class="bg-blue-secondary p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-blue-accent rounded-xl flex items-center justify-center mb-6">
+                            <i class="fas fa-code text-white-text text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Web Development</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-white-text-10 mb-4">Web Development</h3>
+                        <p class="text-white-text mb-6">
                             Custom websites and web applications built with modern technologies and best practices.
                         </p>
                         <ul class="space-y-2">
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Responsive Design</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Frontend & Backend</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-amber-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>API Integration</span>
                             </li>
                         </ul>
                     </div>
                     
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
-                        <div class="w-16 h-16 bg-linear-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center mb-6">
+                    <div class="bg-blue-secondary p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-blue-accent rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-paint-brush text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">UI/UX Design</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-white-text-10 mb-4">UI/UX Design</h3>
+                        <p class="text-white-text mb-6">
                             Beautiful and intuitive interfaces designed to enhance user experience and engagement.
                         </p>
                         <ul class="space-y-2">
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>User Research</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Wireframing & Prototyping</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-purple-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Usability Testing</span>
                             </li>
                         </ul>
                     </div>
                     
-                    <div class="bg-white p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
-                        <div class="w-16 h-16 bg-linear-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6">
+                    <div class="bg-blue-secondary p-8 rounded-2xl shadow-xl transform transition-transform hover:-translate-y-2">
+                        <div class="w-16 h-16 bg-blue-accent rounded-xl flex items-center justify-center mb-6">
                             <i class="fas fa-rocket text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Performance Optimization</h3>
-                        <p class="text-gray-600 mb-6">
+                        <h3 class="text-2xl font-bold text-white-text-10 mb-4">Performance Optimization</h3>
+                        <p class="text-white-text mb-6">
                             Speed up your website and improve core web vitals for better SEO and user retention.
                         </p>
                         <ul class="space-y-2">
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Page Speed Analysis</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Code Optimization</span>
                             </li>
-                            <li class="flex items-center text-gray-700">
-                                <i class="fas fa-check text-blue-500 mr-2"></i>
+                            <li class="flex items-center text-white-text">
+                                <i class="fas fa-check text-blue-accent mr-2"></i>
                                 <span>Caching Strategies</span>
                             </li>
                         </ul>
@@ -236,7 +224,7 @@
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="snap-section h-screen w-full flex items-center justify-center bg-linear-to-br from-violet-50 to-purple-100 p-8">
+        <section id="portfolio" class="snap-section h-screen w-full flex items-center justify-center bg-blue-background p-8">
             <div class="max-w-6xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-16">
                     Our <span class="text-violet-600">Portfolio</span>
@@ -300,7 +288,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="snap-section h-screen w-full flex items-center justify-center bg-linear-to-br from-rose-50 to-pink-100 p-8">
+        <section id="contact" class="snap-section h-screen w-full flex items-center justify-center bg-blue-background p-8">
             <div class="max-w-4xl mx-auto w-full">
                 <h2 class="text-4xl md:text-5xl font-bold text-center text-gray-800 mb-4">
                     Get In <span class="text-rose-600">Touch</span>
@@ -396,9 +384,10 @@
         </section>
     </main>
 
-    <!-- Instructions -->
-    <div class="fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded-lg shadow-lg max-w-xs text-sm z-40">
-        <p><strong>Instructions:</strong> Scroll down to see the navbar appear. Hover over icons for tooltips. Click icons to navigate.</p>
+    <!-- Watermark -->
+    <div class="flex flex-row items-center space-x-2 fixed bottom-2 left-2 p-2 rounded-lg max-w-xs text-sm z-40">
+        <div class="size-6 bg-zinc-400 hover:bg-lime-400 transition-colors" style="mask: url('/alien-svgrepo-com.svg') no-repeat center / contain; -webkit-mask: url('/alien-svgrepo-com.svg') no-repeat center / contain;"></div>
+        <p class="text-white-text font-bold">THE OUTER COLONY</p>
     </div>
 
     <script>

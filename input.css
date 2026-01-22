@@ -1,6 +1,15 @@
 @import "tailwindcss";
 
 @theme {
+    --color-blue-background: #0b0e14;
+    --color-white-text: #e9ebf1;
+    --color-white-text-10: #a3aed1;
+    --color-blue-primary: #a1b2d4;
+    --color-blue-secondary: #304878;
+    --color-blue-accent: #668acc;
+
+    --color-3048784D: #3048784D;
+
   --animate-slide-in: slide-in 0.3s ease-out;
   --animate-fade-in: fade-in 0.5s ease-out;
 
@@ -86,12 +95,12 @@
 /* Section indicator */
 .section-indicator {
     width: 4px;
-    background-color: #ccc;
+    background-color: #0b0e14;
     margin: 8px auto;
     border-radius: 2px;
     transition: all 0.3s;
 }
 
 .section-indicator.active {
-    background-color: #3b82f6;
+    background-color: #668acc;
 }
